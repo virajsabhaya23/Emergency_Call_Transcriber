@@ -1,3 +1,4 @@
+import sys
 # Import testCases dictionary
 from testCases import test_cases
 
@@ -6,7 +7,7 @@ def stringEditDistance(s1, s2):
     m = len(s1)
     n = len(s2)
 
-    # Create a table to store the edit distances
+    # A table to store the edit distances
     dp = [[0] * (n + 1) for _ in range(m + 1)]
 
     # Initialize the table with base cases
@@ -27,27 +28,30 @@ def stringEditDistance(s1, s2):
 
 # matching the names functionally
 def matchNames(inputNames, dmvRecords):
+
+    record_dict = {}
+    for record in dmvRecords:
+        record_name, address = record.split(";")
+        record_dict[record_name] = address
+
+
     matched_addresses = []
     for name in inputNames:
         min_edit_distance = float("inf")
         closest_match = ""
 
-        for record in dmvRecords:
-            record_name, address = record.split(";")
+        for record_name in record_dict:
             distance = stringEditDistance(name, record_name)
 
             if distance < min_edit_distance:
                 min_edit_distance = distance
-                closest_match = address
+                closest_match = record_dict[record_name]
 
         matched_addresses.append(closest_match)
 
     return matched_addresses
 
-def main():
-    # passing single test case
-    testCaseName = "test_3"
-
+def runTestCases(testCaseName):
     # begin testing
     inputNames, dmvRecords, expectedOutput = test_cases[testCaseName]
     user_output = matchNames(inputNames, dmvRecords)
@@ -60,6 +64,19 @@ def main():
         print(f"---\n{testCaseName} passed successfully :)\n---")
     else:
         print(f"{testCaseName} failed :(")
+
+def main():
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <testCaseName>\ntestCaseName: test_1, test_2, test_3")
+        return
+
+    # passing single test case
+    testCaseName = sys.argv[1]
+    if testCaseName not in test_cases:
+        print(f"Test case '{testCaseName}' not found.\nUsage: python3 main.py <testCaseName>\ntestCaseName: test_1, test_2, test_3")
+        return
+    else:
+        runTestCases(testCaseName)
 
 if __name__ == "__main__":
     main()
