@@ -2,13 +2,17 @@
 
 ## Transcribing an Emergency Call
 
-### Problem Statement
+### Overview
 
-#### Introduction
+The aim of this project is to develop a system that improves the efficiency of emergency response teams by accurately transcribing names from emergency calls and matching them with the corresponding individual's information in the DMV (Department of Motor Vehicles) database. The system will address issues such as misheard names, mistyped names, and arbitrary misspellings to ensure faster and more accurate search results, allowing the emergency response team to quickly identify and locate the person in need.
 
-Imagine you are working with an emergency response team to respond to 911 calls as quickly as possible. One of the biggest problems the team faces is handling the transcription of the names of callers. You've noticed that sometimes the name is misheard by the person taking the call, sometimes it is simply mistyped, and sometimes both. These problems make it more difficult to search the database of DMV records to identify and locate the individual in need.
+### Features and Functionality
 
-You would like to help solve this problem, and ensure the fastest response rates possible to help those in need. You have read and write access to the list of transcribed names and the database of DMV records. We need a way to effectively translate names based on their transcriptions and be able to narrow our search results to the one individual whose location we are interested in.
+**1. Perfect Name Matching:** The system will start by performing a direct match between the transcribed names and the names in the DMV database. If a perfect match is found, the system will retrieve the corresponding address from the database.
+
+**2. Misspelling Detection and Correction:** To handle cases where the transcribed names have basic misspellings, the system will utilize string edit distance algorithms. By calculating the similarity between the transcribed name and the names in the database, the system can detect and correct simple misspellings. For example, if "Shelvy Silvester" is transcribed instead of "Shelby Sylvester," the system can identify the missing and incorrect letters and provide the correct match.
+
+**3. Metaphone Matching:** The system will tackle more complex misspellings and variations in the transcribed names using metaphone matching. Metaphone is a phonetic algorithm that converts words into phonetic representations, allowing for approximate matching of similar-sounding names. The system will generate metaphone codes for both the transcribed names and the names in the DMV database, and then compare these codes to identify potential matches. This approach will handle cases where transcribers use different spellings for similar-sounding names.
 
 ### Responding to Calls
 
